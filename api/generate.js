@@ -32,10 +32,11 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error(err);
 
+    // Handle OpenAI quota or rate limit errors
     if (err.code === "insufficient_quota" || err.status === 429) {
-      res.status(429).json({ error: "API quota exceeded. Please try later." });
+      res.status(429).json({ error: "❌ API quota exceeded. Please try again later." });
     } else {
-      res.status(500).json({ error: "Failed to generate script." });
+      res.status(500).json({ error: "❌ Failed to generate script." });
     }
   }
 }

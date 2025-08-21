@@ -16,10 +16,10 @@ export default function ScriptWriter() {
 
     try {
       const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: title }),
-      });
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ title, tone, length }), // send the correct keys
+});
 
       const data = await response.json();
 
