@@ -1,7 +1,7 @@
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY, // Add your Groq API key in .env.local
+const client = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export default async function handler(req, res) {
@@ -9,38 +9,41 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { title, tone, length } = req.body;
-
-  if (!title || !title.trim()) {
-    return res.status(400).json({ error: "Title is required" });
-  }
-
   try {
-    const prompt = `Write a ${length || "10mins"} YouTube script on: "${title}". 
-Tone: ${tone || "engaging, storytelling"}.
-Include a strong hook, context, tension, climax, and outro. Use immersive narration with big paragraphs.`;
+    const { title, tone, length } = req.body;
 
-    // Groq API call
-    const completion = await groq.chat.completions.create({
-      model: "llama3-70b-8192", // or another Groq-supported model
+    if (!title || !title.trim()) {
+      return res.status(400).json({ error: "Title is required" });
+    }
+
+    // Build the prompt directly with the values sent from frontend
+    const prompt = `Write a ${length} YouTube script on: "${title}".
+Tone: ${tone}.
+The script should consist of a strong hook, context, tension, climax, and outro with immersive narration and long, flowing paragraphs.
+but Only return the plain raw narrative script in paragraphs. 
+Do NOT include any headings, timestamps, voice directions, commentary, or labels like Hook, Context, etc. 
+Just give the text only.`;
+
+    const completion = await client.chat.completions.create({
+      model: "llama3-70b-8192",
       messages: [
-        { role: "system", content: "You are an expert YouTube script writer." },
+        {
+          role: "system",
+          content: "You are a professional YouTube script writer. Always output raw narrative paragraphs without any headings or timestamps.",
+        },
         { role: "user", content: prompt },
       ],
       max_tokens: 1500,
-      temperature: 0.7,
     });
 
-    const script = completion.choices[0]?.message?.content || "";
+    const script = completion.choices?.[0]?.message?.content || "";
 
-    res.status(200).json({ script });
-  } catch (err) {
-    console.error("Groq API error:", err);
-
-    if (err.status === 429) {
-      res.status(429).json({ error: "❌ API quota exceeded. Please try again later." });
-    } else {
-      res.status(500).json({ error: "❌ Failed to generate script." });
-    }
+    return res.status(200).json({ script });
+  } catch (error) {
+    console.error("Groq API Error:", error);
+    return res.status(500).json({
+      error: "Failed to generate script",
+      details: error?.message || "Unknown error",
+    });
   }
 }
