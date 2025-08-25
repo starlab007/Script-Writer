@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './App.css';
+import "./App.css";
 
 export default function ScriptWriter() {
   const [title, setTitle] = useState("");
@@ -16,10 +16,10 @@ export default function ScriptWriter() {
 
     try {
       const response = await fetch("/api/generate", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ title, tone, length }), // send the correct keys
-});
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, tone, length }), // send the correct keys
+      });
 
       const data = await response.json();
 
@@ -41,7 +41,8 @@ export default function ScriptWriter() {
     <div className="min-h-screen w-screen bg-gradient-to-b from-blue-900 via-blue-950 to-black text-white flex flex-col items-center p-10">
       <h1 className="text-3xl font-bold mb-2">AI Script Writer ✍️</h1>
       <p className="text-gray-400 mb-10 text-center">
-        Turn your idea into a complete script that hooks viewers and keeps them watching.
+        Turn your idea into a complete script that hooks viewers and keeps them
+        watching.
       </p>
 
       {/* Input box */}
@@ -91,7 +92,9 @@ export default function ScriptWriter() {
       {script && (
         <div className="w-full max-w-2xl mt-10 bg-gray-900 rounded-xl p-6 shadow-lg">
           <h2 className="text-xl font-bold mb-3">Generated Script</h2>
-          <p className="whitespace-pre-wrap">{script}</p>
+          <p className="whitespace-pre-wrap max-h-96 overflow-y-auto break-words">
+            {script}
+          </p>
         </div>
       )}
     </div>
