@@ -4,7 +4,7 @@ import "./App.css";
 export default function ScriptWriter() {
   const [title, setTitle] = useState("");
   const [tone, setTone] = useState("");
-  const [length, setLength] = useState("1mins");
+  const [length, setLength] = useState("500Words");
   const [loading, setLoading] = useState(false);
   const [script, setScript] = useState("");
 
