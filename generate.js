@@ -17,16 +17,17 @@ export default async function handler(req, res) {
     }
 
     // Build the prompt directly with the values sent from frontend
-    const prompt = `Write a ${length} YouTube script on: "${title}". 
+    const prompt = `Write a ${length} YouTube script on: "${title}".
 Tone: ${tone}.
-Include a strong hook, context, tension, climax, and outro. Use immersive narration with big paragraphs. Don't give me headings or time stamps just give me raw paragraphs.`;
+The script should include a strong hook, context, tension, climax, and outro with immersive narration and long, flowing paragraphs.
+Important: Do NOT include any headings, section titles, timestamps, or labels. Write it as one continuous narrative with only plain paragraphs.`;
 
     const completion = await client.chat.completions.create({
       model: "llama3-70b-8192",
       messages: [
         {
           role: "system",
-          content: "You are a professional YouTube script writer.",
+          content: "You are a professional YouTube script writer. Always output raw narrative paragraphs without any headings or timestamps.",
         },
         { role: "user", content: prompt },
       ],
