@@ -62,12 +62,12 @@ export default function ScriptWriter() {
             onChange={(e) => setLength(e.target.value)}
             className="bg-gray-800 px-4 py-2 rounded-lg"
           >
-            <option>1 mins</option>
-            <option>5 mins</option>
-            <option>10 mins</option>
-            <option>15 mins</option>
-            <option>20 mins</option>
-            <option>30 mins</option>
+            <option>500 Words</option>
+            <option>1000 Words</option>
+            <option>1500 Words</option>
+            <option>3000 Words</option>
+            <option>5000 Words</option>
+
           </select>
 
           <input
