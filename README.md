@@ -1,18 +1,25 @@
-# AI Script Writer ✍️
+# YouTube Script Generator (Groq API)
 
-Turn your ideas into engaging YouTube scripts instantly! This project uses OpenAI's GPT API to generate full-length scripts with hooks, context, tension, climax, and an outro.
+This project generates immersive YouTube scripts using the **Groq API** with the **llama3-70b-8192** model.  
+It returns **only raw narrative text** without any headings, timestamps, or labels — perfect for TTS or video narration.
 
 ---
 
 ## Features
-
-- Generate YouTube scripts based on a title/topic
-- Optional tone selection for personalized scripts
-- Choose script length (1 min to 30 mins)
-- Real-time error handling for API quota or server issues
-- Clean, modern UI built with React and Tailwind CSS
+- Generate long-form YouTube scripts with:
+  - Strong hook, rising tension, climax, and smooth outro.
+  - Immersive narration in flowing paragraphs.
+- Clean output: **no section headings, timestamps, or extra commentary**.
+- Supports **custom title**, **tone**, and **length** from the frontend.
+- RESTful API endpoint built with Node.js (Next.js API route style).
 
 ---
+
+## Tech Stack
+- **Node.js / Next.js**
+- **Groq SDK** (`groq-sdk`)
+- **Llama 3 (70B) Model**
+
 
 ## Demo
 
@@ -21,13 +28,6 @@ Turn your ideas into engaging YouTube scripts instantly! This project uses OpenA
 
 ---
 
-## Tech Stack
-
-- **Frontend:** React, Tailwind CSS  
-- **Backend:** Vercel Serverless Functions (API routes)  
-- **AI:** OpenAI GPT-4o-mini
-
----
 
 ## Live Demo
 
